@@ -4,8 +4,10 @@ import { SignIn } from './Pages/SignIn';
 import { SignUp } from './Pages/SignUp';
 import { Account } from './Pages/Account';
 import { AddHousehold } from './Pages/AddHousehold';
+import { Household } from './Pages/Household';
 import { HouseholdProvider } from './HouseholdContext';
 import { CodeEmailPage } from './Pages/CodeEmail';
+
 
 export function App() {
   return (
@@ -19,6 +21,7 @@ export function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/addhousehold" element={<AddHousehold />} />
           <Route path="/codeemail" element={<CodeEmailPage />} />
+          <Route path="/household" element={<Household />} /> 
         </Routes>  
       </Router>    
     </HouseholdProvider>
