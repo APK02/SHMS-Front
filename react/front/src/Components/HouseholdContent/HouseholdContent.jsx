@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Button } from '../Button/Button';
 import './HouseholdContent.css';
 import { HouseholdContext } from '../../HouseholdContext';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { ManageButton } from '../ManageButton/ManageButton';
 
 export const Content = () => {
@@ -88,9 +88,9 @@ export const Content = () => {
                                 <button className="add-member-btn" onClick={handleAddMemberClick}>Add New Member</button>
                                 {showAddMember && (
                                     <div className="add-member">
-                                        <input type="text" placeholder="Enter member email"
-                                            style={{ width: '150px', height: '30px' }} />
-                                        <button style={{ width: '150px', height: '30px' }}>
+                                        <input type="text" placeholder="Enter name"
+                                            style={{ width: '100px', height: '30px',fontSize: '1vw'  }} />
+                                        <button style={{ width: '50px', height: '30px',fontSize: '10px', paddingTop:'5px', paddingLeft:'7px'}}>
                                             Send Invitation
                                         </button>
                                     </div>
@@ -98,10 +98,11 @@ export const Content = () => {
                                 <button className="add-member-btn" onClick={handleDeleteHouseholdClick}>Delete Household</button>
                                 {showDeleteConfirmation && (
                                     <div className="delete-confirmation">
-                                        <button style={{ width: '150px', height: '30px' }}>
+                                        <p style={{fontSize:'10px'}}>Are you sure you want to delete?</p>
+                                        <button style={{ width: '73px', height: '30px' }}>
                                             Yes
                                         </button>
-                                        <button style={{ width: '150px', height: '30px' }}>
+                                        <button style={{ width: '73px', height: '30px' }}>
                                             No
                                         </button>
                                     </div>
@@ -109,14 +110,23 @@ export const Content = () => {
                                 <button className="add-member-btn" onClick={handleViewInvitationsClick}>View Invitations</button>
                                 {showInvitations && (
                                     <div className="show-invitations">
-                                        <h2>Invitations:</h2>
-                                        <p>Invitation 1</p>
+                                        
+                                        <p style={{fontSize:'15px'}}>Invitation 1</p>
                                         <button style={{ width: '150px', height: '30px' }}>
                                             Accept
                                         </button>
                                         <button style={{ width: '150px', height: '30px' }}>
                                             Decline
                                         </button>
+
+                                        <p style={{fontSize:'15px'}}>Invitation 2</p>
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Accept
+                                        </button>
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Decline
+                                        </button>
+
                                     </div>
                                 )}
                             </div>
@@ -129,10 +139,10 @@ export const Content = () => {
                                         <p className='user-name'>{user.username}</p>
                                         <p className='user-role'>{user.role}</p>
                                         <div className="user-actions">
-                                            <Button className="delete-button" text={"Delete"} onClick={() => handleDeleteUser(user.id)} />
-                                            <Button className="manage-button" text={"Manage Role"} onClick={() => handleManageRole(user.id)} />
+                                            <button style={{backgroundColor:"red"}}className="delete-button" text={"Delete"} onClick={() => handleDeleteUser(user.id)} >Kick</button>
+                                            {/* <button className="manage-button" text={"Manage Role"} onClick={() => handleManageRole(user.id)} >Manage</button> */}
                                             <select value={role[user.id] || ''} onChange={(e) => handleManageRole(user.id, e.target.value)}>
-                                                <option value="">Select...</option>
+                                                <option value="">Manage...</option>
                                                 <option value="parent">Parent</option>
                                                 <option value="child">Child</option>
                                             </select>
