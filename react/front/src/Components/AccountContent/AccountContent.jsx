@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState} from 'react';
+import React, { useEffect, useContext, useState, useRef} from 'react';
 import { Button } from '../Button/Button';
 import './AccountContent.css';
 import { HouseholdContext } from '../../HouseholdContext';
@@ -16,6 +16,8 @@ export const Content = () =>
     const [errorMessage, setErrorMessage] = useState('');
     const token = localStorage.getItem('jwtToken');
     const navigate = useNavigate();
+    const [profileImage, setProfileImage] = useState(null);
+    const fileInputRef = useRef(null);
 
     useEffect(() => {
         fetch("http://localhost:9091/account-security", {
@@ -71,13 +73,32 @@ export const Content = () =>
     {
         setActiveTab(tab);
     };
+    const handleProfileImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setProfileImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
+    const handleProfileImageClick = () => {
+        fileInputRef.current.click();
+    };
     return (
         <main>
             <div className="bg-img"></div>
             <div className="profile">
                 <div className="content-info">
-                    <img className='account-img' src="img/account/account.jpg" alt="account-img" />
+                                        <img className='account-img' src={profileImage || "img/account/account.jpg"} alt="account-img" onClick={handleProfileImageClick} />
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleProfileImageChange}
+                    />
                     <p id='name'>{user?.username}</p>
                     <p id='role'>{user?.role}</p>
                     <a href="/#/signin" onClick={handleLogout}><Button text={"Log out"}/></a>

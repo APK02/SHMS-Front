@@ -3,6 +3,7 @@ import { Button } from '../Button/Button';
 import './HouseholdContent.css';
 import { HouseholdContext } from '../../HouseholdContext';
 import { useNavigate } from 'react-router-dom';
+import { ManageButton } from '../ManageButton/ManageButton';
 
 export const Content = () => {
     const [activeTab, setActiveTab] = useState('setings');
@@ -10,8 +11,12 @@ export const Content = () => {
     const [user, setUser] = useState(null);
     const token = localStorage.getItem('jwtToken');
     const navigate = useNavigate();
+    const [role, setRole] = useState({});
+    const [showAddMember, setShowAddMember] = useState(false);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [showInvitations, setShowInvitations] = useState(false);
+    const [newMemberEmail, setNewMemberEmail] = useState('');
 
-    // Lista de utilizatori de exemplu
     const exampleUsers = [
         { id: 1, username: 'User1', role: 'Father', imgSrc: 'img/profile/user1.png' },
         { id: 2, username: 'User2', role: 'Mother', imgSrc: 'img/profile/user1.png' },
@@ -21,21 +26,6 @@ export const Content = () => {
         { id: 6, username: 'User6', role: 'Daughter', imgSrc: 'img/profile/user1.png' },
         { id: 7, username: 'User7', role: 'Daughter', imgSrc: 'img/profile/user1.png' }
     ];
-
-    useEffect(() => {
-        fetch("http://localhost:9091/account-security", {
-            method: 'GET',
-            credentials: 'include',
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setUser(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }, []);
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -52,12 +42,23 @@ export const Content = () => {
 
     const handleDeleteUser = (userId) => {
         console.log(`Delete user with ID: ${userId}`);
-        // Aici poți adăuga logica pentru ștergerea utilizatorului
     };
 
-    const handleManageRole = (userId) => {
-        console.log(`Manage role for user with ID: ${userId}`);
-        // Aici poți adăuga logica pentru gestionarea rolului utilizatorului
+    const handleManageRole = (userId, newRole) => {
+        setRole(prevRole => ({ ...prevRole, [userId]: newRole }));
+    };
+
+    const handleAddMemberClick = () => {
+        console.log('Add member clicked');
+        setShowAddMember(!showAddMember);
+    };
+
+    const handleDeleteHouseholdClick = () => {
+        setShowDeleteConfirmation(!showDeleteConfirmation);
+    };
+
+    const handleViewInvitationsClick = () => {
+        setShowInvitations(!showInvitations);
     };
 
     return (
@@ -83,16 +84,58 @@ export const Content = () => {
                     )}
                     {activeTab === 'security' && (
                         <div className="security">
+                            <div className="top-buttons">
+                                <button className="add-member-btn" onClick={handleAddMemberClick}>Add New Member</button>
+                                {showAddMember && (
+                                    <div className="add-member">
+                                        <input type="text" placeholder="Enter member email"
+                                            style={{ width: '150px', height: '30px' }} />
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Send Invitation
+                                        </button>
+                                    </div>
+                                )}
+                                <button className="add-member-btn" onClick={handleDeleteHouseholdClick}>Delete Household</button>
+                                {showDeleteConfirmation && (
+                                    <div className="delete-confirmation">
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Yes
+                                        </button>
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            No
+                                        </button>
+                                    </div>
+                                )}
+                                <button className="add-member-btn" onClick={handleViewInvitationsClick}>View Invitations</button>
+                                {showInvitations && (
+                                    <div className="show-invitations">
+                                        <h2>Invitations:</h2>
+                                        <p>Invitation 1</p>
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Accept
+                                        </button>
+                                        <button style={{ width: '150px', height: '30px' }}>
+                                            Decline
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
                             <div className="user-list">
-                            <h2>Lista utilizatorilor :</h2>
+                                <h2>Lista utilizatorilor:</h2>
                                 {exampleUsers.map((user) => (
                                     <div key={user.id} className="user-item">
                                         <img className='user-img' src={user.imgSrc} alt={`${user.username}-img`} />
                                         <p className='user-name'>{user.username}</p>
                                         <p className='user-role'>{user.role}</p>
                                         <div className="user-actions">
-                                            <Button text={"Delete"} onClick={() => handleDeleteUser(user.id)} />
-                                            <Button text={"Manage Role"} onClick={() => handleManageRole(user.id)} />
+                                            <Button className="delete-button" text={"Delete"} onClick={() => handleDeleteUser(user.id)} />
+                                            <Button className="manage-button" text={"Manage Role"} onClick={() => handleManageRole(user.id)} />
+                                            <select value={role[user.id] || ''} onChange={(e) => handleManageRole(user.id, e.target.value)}>
+                                                <option value="">Select...</option>
+                                                <option value="parent">Parent</option>
+                                                <option value="child">Child</option>
+                                            </select>
                                         </div>
                                     </div>
                                 ))}
@@ -104,3 +147,5 @@ export const Content = () => {
         </main>
     );
 }
+
+export default Content;
