@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Button } from '../Button/Button';
-import './HouseholdContent.css';
+import './HouseholdManageContent.css';
 import { HouseholdContext } from '../../HouseholdContext';
 import { redirect, useNavigate } from 'react-router-dom';
 import { ManageButton } from '../ManageButton/ManageButton';

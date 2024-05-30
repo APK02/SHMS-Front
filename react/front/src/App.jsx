@@ -21,7 +21,7 @@ export function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/addhousehold" element={<AddHousehold />} />
           <Route path="/codeemail" element={<CodeEmailPage />} />
-          <Route path="/household" element={<Household />} /> 
+          <Route path="/household-manage" element={<Household />} /> 
         </Routes>  
       </Router>    
     </HouseholdProvider>
