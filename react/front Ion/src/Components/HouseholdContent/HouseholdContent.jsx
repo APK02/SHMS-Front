@@ -100,7 +100,7 @@ export const HouseholdContent = () => {
                                 <a href="/#/addhousehold"><Button text={"Add new household"} /></a>
                             )}
                             {households.map((household, index) => (
-                                <div key={index} className="household-item">
+                                <div key={index} className="household-item" onClick={() => navigate('/household-manage')}>
                                     <h2>{household.name}</h2>
                                     {/* <p>{household.address}</p>
                                     <p>{household.city}</p>

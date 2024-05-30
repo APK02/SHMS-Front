@@ -8,6 +8,7 @@ import { HouseholdProvider } from './HouseholdContext';
 import { CodeEmailPage } from './Pages/CodeEmail';
 import { PreferencesAndAllergens } from './Pages/PreferencesAndAllergens';
 import { Household } from './Pages/Household';
+import { HouseholdManage } from './Pages/HouseholdManage';
 
 export function App() {
   return (
@@ -22,6 +23,7 @@ export function App() {
           <Route path="/codeemail" element={<CodeEmailPage />} />
           <Route path="/preferences" element={<PreferencesAndAllergens />} />
           <Route path="/household" element={<Household />} />
+          <Route path="/household-manage" element={<HouseholdManage />} />
         </Routes>  
       </Router>    
     </HouseholdProvider>
