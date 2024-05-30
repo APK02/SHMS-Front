@@ -84,6 +84,7 @@ main
     position: absolute;
     top: 25%;
     left: 32%;
+    
     background-color: #FAFAFA;
     border: solid 1px #969696;
     width: 65%;
@@ -390,9 +391,11 @@ h4{
 .user-list {
     max-height: 1600px; /* Setează înălțimea maximă a containerului */
     overflow-y: auto; /* Adaugă o bară de derulare pe axa y dacă conținutul depășește înălțimea */
-    margin-bottom: 20px; /* Adaugă o margine în partea de jos a containerului */
+    margin-bottom: 80px; /* Adaugă o margine în partea de jos a containerului */
     width: 100%; /* Setează lățimea containerului la 100% */
     max-width: 1000px; /* Setează lățimea maximă a containerului */
+    background-color: #FAFAFA;
+    border: solid 1px #969696;
 }
 
 h2 {
