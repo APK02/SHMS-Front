@@ -4,7 +4,7 @@ import { SignIn } from './Pages/SignIn';
 import { SignUp } from './Pages/SignUp';
 import { Account } from './Pages/Account';
 import { AddHousehold } from './Pages/AddHousehold';
-import { Household } from './Pages/Household';
+import { Household } from './Pages/HouseholdManage';
 import { HouseholdProvider } from './HouseholdContext';
 import { CodeEmailPage } from './Pages/CodeEmail';
 
